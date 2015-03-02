@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">pp</string>
+    <string name="action_settings">Inställningar</string>
+    <string name="hello_world">Häj häj världen</string>
+    <string name="stop_alarm">Stoppa Alarm</string>
+    <string name="Button_Set">Ställ Alarm</string>
+    <string name="cancel_alarm">Stäng av Alarm</string>
+    <string name="switch_button">swicharooo</string>
+    <string name="volume">Volym:\u0020</string>
+    <string name="vibration_on">Vibration på</string>
+    <string name="vibration_off">Vibration av</string>
+
+</resources>
