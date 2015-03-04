@@ -1,15 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">pp</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="stop_alarm">Stop Alarm</string>
-    <string name="Button_Set">Set Alarm</string>
-    <string name="cancel_alarm">Cancel Alarm</string>
-    <string name="switch_button">Switch</string>
-    <string name="volume">Volume:\u0020</string>
-    <string name="vibration_on">Vibration on</string>
-    <string name="vibration_off">Vibration off</string>
 
+    <string name="app_name">Remember</string>
+    <string name="action_settings">Inställningar</string>
+  
+    <string name="stop_alarm">Stoppa alarm</string>
+    <string name="snooze">Återkom</string>
+    <string name="Button_Set">Sätt alarm</string>
+    <string name="cancel_alarm">Stoppa alarm</string>
+    <string name="switch_button"></string>
+    <string name="vibration">Vibration</string>
+    <string name="button">Sätt alarm</string>
+    <string name="personal_message">Personligt Meddelande</string>
+    <string name="editText">Personligt meddelande</string>
+    <string name="button_label">Skicka</string>
+    <string name="your_message">Vattna blommorna</string>
+    <string name="the_message">Ditt meddelande är:</string>
+    <string name="changeAlarm">Ändra alarm</string>
+    <string name="time_picker">Sätt alarm</string>
+    <string name="infoText">Sätt ett personligt meddelande till ditt alarm:</string>
+    <string name="change_msg">Ändra meddelande</string>
+    <string name="your_msg">Ditt meddelande:</string>
+ 
+    <string name="sound">Ljud</string>
+    <string name="result"></string>
+    <string name="text">Ok</string>
+    <string name="colortext">Välj färg</string>
+    <string name="on">på</string>
+    <string name="off">av</string>
+    <string name="alarmText">Tiden satt till: </string>
+    <string name="scroll">Ange popup-färg</string>
+    <string name="scroll2">Påminnelseintervall</string>
+    
+   	<string-array name="colors">
+        <item>Vit</item>
+        <item>Röd</item>
+        <item>Svart</item>
+        <item>Rosa</item>
+        <item>Blå</item>
+    </string-array>
+    
+   	<string-array name="remind">
+        <item>10 min</item>
+        <item>30 min</item>
+        <item>60 min</item>
+    </string-array>
 </resources>

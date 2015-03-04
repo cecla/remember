@@ -1,68 +1,219 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Parent Layout With Vertical Orientation -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_gravity="center"
-    android:gravity="center"
-    android:orientation="vertical" >
+    android:layout_weight="1"
+    android:background="#ffffff"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+     >
+    <!--  android:divider="?android:dividerHorizontal"
+    android:showDividers="middle"-->
+    
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <!-- android:background="#b2d8ff -->
+    <!-- android:background="#d3d3d3 -->
+    <!-- android:paddingLeft="16dp" -->
+    <!-- android:paddingRight="16dp" -->
+
+
+    <!-- Header aligned to top -->
+    <!-- <include layout="@layout/header" /> -->
+
+
+    <!-- Content below header and above footer -->
+
+
+    <!--
+        <LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_horizontal"
+	    android:orientation="vertical" >
+    -->
+
+
+	<LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="118dp"
-        android:text="@string/hello_world" />
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal" >
+        
+	    <TextView
+	        android:id="@+id/alarmText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="30dp"
+	         />
+	    
+	</LinearLayout>
+    <!-- 1st Child Layout  (Nested In Parent Layout) with Horizontal Orientation -->
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="69dp"
-        android:text="@string/Button_Set" />
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttonshape"
+            android:text="@string/button"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
+            android:text="@string/switch_button"
+            android:switchTextAppearance="@style/stext"
+            android:textOff="@string/off"
+            android:textOn="@string/on" />
+    </LinearLayout>
+
+    <!-- 2nd Child Layout  (Nested In Parent Layout) with Horizontal Orientation -->
+
+
+	<LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="86dp"
-        android:text="@string/cancel_alarm" />
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal" >
+        
+	    <TextView
+	        android:id="@+id/alarmText2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/infoText"
+	        android:layout_marginLeft="30dp"/>
+        
+	</LinearLayout>
 
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button1"
-        android:layout_marginTop="36dp"
-        android:text="@string/switch_button"
-        android:textOn="On"
-    	android:textOff="Off"/>
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
 
-    <Switch
-        android:id="@+id/switch2"
-        android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="6"
+            android:background="@drawable/rounded"
+            android:hint="@string/editText"
+            android:imeOptions="actionDone"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttonshape2"
+            android:minHeight="5dp"
+            android:text="@string/text"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <!-- 3rd Child Layout  (Nested In Parent Layout) with Horizontal Orientation -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="19dp"
-        android:text="@string/switch_button"
-        android:textOn="On"
-    	android:textOff="Off"/>
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal" >
 
-    <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
+        <CheckBox
+            android:id="@+id/checkbox_vibration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="1"
+            android:onClick="onCheckboxClicked"
+            android:scaleX="1.00"
+            android:scaleY="1.00"
+            android:text="@string/vibration" />
+
+        <CheckBox
+            android:id="@+id/checkbox_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onCheckboxClicked"
+            android:scaleX="1.00"
+            android:scaleY="1.00"
+            android:text="@string/sound" />
+    </LinearLayout>
+    <!-- 4 Child Layout  (Nested In Parent Layout) with Horizontal Orientation -->
+
+	<LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView1"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="34dp"
-        android:text="CheckBox" />
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal" >
+        
+	    <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="30dp"
+            android:text="@string/scroll" />
+	    
+	    <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            
+            
+            android:text="@string/scroll2" />
+        
+	</LinearLayout>
 
-</RelativeLayout>
+	<LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/rounded"
+            android:entries="@array/colors" />
+        
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/rounded"
+            android:entries="@array/remind" />
+
+        <!-- android:prompt="@string/select"/> -->
+        
+    </LinearLayout>
+
+    <!-- Footer aligned to bottom -->
+
+
+    <!-- <include layout="@layout/footer" /> -->
+
+</LinearLayout>

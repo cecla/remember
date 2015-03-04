@@ -1,70 +1,153 @@
 package com.example.pp;
 
-
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
-
-
+import android.R.string;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.os.Vibrator;
-
+import android.os.SystemClock;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-
+import android.content.BroadcastReceiver;
+import android.content.ClipData.Item;
 import android.content.Context;
 import android.content.Intent;
-
+import android.graphics.Color;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
+import android.widget.ToggleButton;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.widget.Switch;
 
-
+import java.lang.Object;
+import android.view.Menu;
+import android.view.inputmethod.EditorInfo;
 
 
 public class MainActivity extends Activity
 {
+	private static final String[] INDIAN_STATE = null;
 	//private TimePicker time;
-	private Button btn, cancel;
-	private Switch switcher, sound;
+	private CheckBox checkbox1, checkbox2;
+	private Button btn, cancel, buttonText;
+	private Switch switcher;
 	private TimePickerDialog timep;
 	//private Date d;
 	private PendingIntent pendingIntent;
-	private TextView text;
+	private TextView text, text2, text3, alarmtext, alarmtext2;
+	//private EditText edit;
 	private Calendar calSet, calNow;
 	private String can = "Du har stängt av alarmet!";
+	private Spinner spinner, spinner2;
 	private int k = 0;
-	private CheckBox vib;
-	private Vibrator v1;
-	private Toast toast;
+	private EditText editText;
+    private String result;
+    
+	public final static int CREATE_DIALOG  = -1;
+    public final static int THEME_HOLO_LIGHT  = 0;
+    public final static int THEME_BLACK  = 1;
+
+    int position;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
-	{
+	{	
 		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		//this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		
 		btn = (Button)findViewById(R.id.button1);
+		buttonText = (Button)findViewById(R.id.button2);
 		text = (TextView)findViewById(R.id.textView1);
+		text2 = (TextView)findViewById(R.id.textView2);
+		editText = (EditText)findViewById(R.id.editText);
+		checkbox1 = (CheckBox) findViewById(R.id.checkbox_vibration);
+		checkbox2 = (CheckBox) findViewById(R.id.checkbox_sound);
+		//spinner = (Spinner)findViewById(R.id.spinner);
+		alarmtext = (TextView) findViewById(R.id.alarmText);
+		alarmtext2 = (TextView) findViewById(R.id.alarmText2);
 		
-		v1 = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+		//spinner.setOnItemSelectedListener((OnItemSelectedListener) this);
 		
 		
 		final AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 		k = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
 		
+		checkbox1.setOnClickListener(new OnClickListener()
+		{
+            @Override
+            public void onClick(View v) {
+ 
+               if(((CheckBox)v).isChecked())
+               {
+            	   audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+               }
+               
+               else
+               {
+            	   audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+               }
+              
+                
+            }
+		});
+		
+		
+		
+		checkbox2.setOnClickListener(new OnClickListener()
+		{
+            @Override
+            public void onClick(View v) {
+ 
+            	if(((CheckBox)v).isChecked())
+                {
+            		audioManager.setStreamVolume(AudioManager.STREAM_ALARM, k,
+            				AudioManager.FLAG_PLAY_SOUND);
+            		System.out.println(audioManager.getStreamVolume(AudioManager.STREAM_ALARM));
+             	   	System.out.println("checkt");
+                }
+                
+                else
+                {
+                	audioManager.setStreamVolume(AudioManager.STREAM_ALARM, 0,
+                			AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                	System.out.println(audioManager.getStreamVolume(AudioManager.STREAM_ALARM));
+             	   	System.out.println("inte checkt");
+                }
+              
+             }
+		});
+		
+		buttonText.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v) 
+			{
+				result = editText.getText().toString();
+				editText.setText("");
+				editText.setHint(R.string.change_msg);
+				
+				alarmtext2.setText(getResources().getString(R.string.your_msg) + " " + result);
+				//System.out.println(text.getText());
+			}
+		});
 		
 		btn.setOnClickListener(new OnClickListener()
 		{
@@ -76,6 +159,7 @@ public class MainActivity extends Activity
 		});
 		
 		switcher = (Switch)findViewById(R.id.switch1);
+		//switcher.setTextColor(Color.WHITE);
 		switcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			
 			@Override
@@ -89,85 +173,15 @@ public class MainActivity extends Activity
 					}
 					System.out.println("" + calNow.getTime());
 					setAlarm(calSet);
-					text.setText("Tiden du har satt: " + calSet.getTime());
+					//text.setText("Tiden du har satt: " + calSet.getTime());
+					
 				}
 				else
 				{
 					cancelAlarm();
-					text.setText(can);
+					//text.setText(can);
 				}
 			}
-		});
-		
-		sound = (Switch)findViewById(R.id.switch2);
-		sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if(isChecked)
-				{
-					//audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-					audioManager.setStreamVolume(AudioManager.STREAM_ALARM, k, AudioManager.FLAG_PLAY_SOUND);
-					//System.out.println(audioManager.getStreamVolume(AudioManager.STREAM_ALARM));
-					String message = getString(R.string.volume) + audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-					//toast = Toast.makeText(getApplicationContext(), "Volume: " + audioManager.getStreamVolume(AudioManager.STREAM_ALARM), Toast.LENGTH_SHORT);
-					toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-					toast.show();
-					System.out.println("ljud på " + audioManager.getRingerMode());
-				}
-				else
-				{
-					//audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-					audioManager.setStreamVolume(AudioManager.STREAM_ALARM, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-					//System.out.println(audioManager.getStreamVolume(AudioManager.STREAM_ALARM));
-					System.out.println("ljud " + audioManager.getRingerMode());
-				}
-				
-			}
-		});
-		
-		
-		cancel = (Button)findViewById(R.id.button2);
-		cancel.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View arg0)
-			{
-				cancelAlarm();
-				//text = (TextView)findViewById(R.id.textView1);
-				//text.setText(can);
-			}
-		});
-		
-		vib = (CheckBox)findViewById(R.id.checkBox1);
-		vib.setOnClickListener(new OnClickListener()
-		{
-			@SuppressWarnings("deprecation")
-			@Override
-			public void onClick(View v) 
-			{
-				if(((CheckBox)v).isChecked())
-				{
-					audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-					//audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
-					//System.out.println("på" + audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION));
-					//System.out.println("Volym " + audioManager.getStreamVolume(AudioManager.STREAM_ALARM));
-					System.out.println("på " + audioManager.getRingerMode());
-					toast = Toast.makeText(getApplicationContext(), R.string.vibration_on, Toast.LENGTH_SHORT);
-					toast.show();
-				}
-				else
-				{
-					audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-					//audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
-					//System.out.println("av" + audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION));
-					//System.out.println("Volym " + audioManager.getStreamVolume(AudioManager.STREAM_ALARM));
-					System.out.println("av " + audioManager.getRingerMode());
-					toast = Toast.makeText(getApplicationContext(), R.string.vibration_off, Toast.LENGTH_SHORT);
-					toast.show();
-				}
-			}
-			
 		});
 		
 	}
@@ -179,13 +193,12 @@ public class MainActivity extends Activity
 		timep = new TimePickerDialog(MainActivity.this, onTimeSetListener, cal.get(Calendar.HOUR_OF_DAY),
 				cal.get(Calendar.MINUTE), is24r);
 		
-		timep.setTitle("Set Alarm Title");
+		timep.setTitle(R.string.time_picker);
 		timep.show();
 	}
 	
 	OnTimeSetListener onTimeSetListener = new OnTimeSetListener()
 	{
-		@SuppressWarnings("deprecation")
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute)
 		{
@@ -203,10 +216,13 @@ public class MainActivity extends Activity
 			}
 			setAlarm(calSet);
 			switcher.setChecked(true);
-			vib.setChecked(true);
-			sound.setChecked(true);
-			text.setText("Tiden du har satt: " + calSet.getTime());
-			btn.setText("Time: " + calSet.get(Calendar.HOUR_OF_DAY) + ":" + calSet.get(Calendar.MINUTE));
+			
+			SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+			String format1 = format.format(calSet.getTime());
+			btn.setText(R.string.changeAlarm);
+			alarmtext.setText(getResources().getString(R.string.alarmText) + " " + format1);
+			//text.setText(" " + calSet.getTime());
+
 		}
 	};
 	
@@ -223,9 +239,8 @@ public class MainActivity extends Activity
 	{
 		Intent intent = new Intent(this, AlarmReceiver1.class);
 		pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
-		
+
 		AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 		am.cancel(pendingIntent);
 	}
-
 }
